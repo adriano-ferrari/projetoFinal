@@ -35,3 +35,14 @@ class Parametro(models.Model):
 
     def __str__(self):
         return 'Parametros Gerais'
+
+
+class MovRotativo(models.Model):
+    checkin = models.DateTimeField(auto_now=True)
+    checkout = models.DateTimeField(auto_now=False, null=True, blank=True)
+    valor_hora = models.DecimalField(max_digits=5, decimal_places=2)
+    veiculo = models.ForeignKey(Veiculo, on_delete=models.PROTECT)
+    pago = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.veiculo.placa
