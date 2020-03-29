@@ -26,4 +26,12 @@ class Veiculo(models.Model):
     observacoes = models.TextField()
 
     def __str__(self):
-        return self.modelo + ' - ' + self.placa
+        return f'{self.marca}/{self.modelo} - {self.placa}'
+
+
+class Parametro(models.Model):
+    valor_hora = models.DecimalField(max_digits=5, decimal_places=2)
+    valor_mes = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return 'Parametros Gerais'
