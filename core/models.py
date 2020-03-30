@@ -63,3 +63,11 @@ class Mensalista(models.Model):
     def __str__(self):
         return f'{self.veiculo} - {self.inicio}'
 
+
+class MovMensalista(models.Model):
+    mensalista = models.ForeignKey(Mensalista, on_delete=models.PROTECT)
+    dt_pgto = models.DateField()
+    total = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.mensalista} - {self.total}'
