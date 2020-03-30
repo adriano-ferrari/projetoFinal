@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Marca, Veiculo, Pessoa, Parametro, MovRotativo
+from .models import Marca, Veiculo, Pessoa, Parametro, MovRotativo, Mensalista
 
 
 class MovRotativoAdmin(admin.ModelAdmin):
@@ -10,4 +10,5 @@ admin.site.register(Marca)
 admin.site.register(Veiculo)
 admin.site.register(Pessoa)
 admin.site.register(Parametro)
+admin.site.register(Mensalista)
 admin.site.register(MovRotativo, MovRotativoAdmin)
