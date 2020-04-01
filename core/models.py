@@ -61,7 +61,7 @@ class Mensalista(models.Model):
     valor_mes = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f'{self.veiculo} - {self.inicio}'
+        return f'{self.veiculo}   -   {self.inicio}'
 
 
 class MovMensalista(models.Model):
