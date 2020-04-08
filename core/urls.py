@@ -3,7 +3,7 @@ from .views import (home, lista_pessoas, lista_veiculos, lista_movrotativos,
                     lista_mensalistas, lista_movmensalista, pessoa_nova,
                     veiculo_novo, movrotativo_novo, mensalista_novo,
                     movmensalista_novo, pessoa_update, veiculo_update,
-                    movrotativo_update)
+                    movrotativo_update, mensalista_update)
 
 urlpatterns = [
     path('', home, name='core_home'),
@@ -23,6 +23,7 @@ urlpatterns = [
 
     path('mensalistas/', lista_mensalistas, name='core_lista_mensalistas'),
     path('mensalista-novo/', mensalista_novo, name='core_mensalista_novo'),
+    path('mensalista-update/<int:id>/$', mensalista_update, name='core_mensalista_update'),
 
     path('mov-mensal/', lista_movmensalista, name='core_lista_movmensalistas'),
     path('mov-mensal-novo/', movmensalista_novo, name='core_movmensalista_novo'),
