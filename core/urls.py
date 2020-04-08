@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views import (home, lista_pessoas, lista_veiculos, lista_movrotativos,
                     lista_mensalistas, lista_movmensalista, pessoa_nova,
                     veiculo_novo, movrotativo_novo, mensalista_novo,
-                    movmensalista_novo, pessoa_update)
+                    movmensalista_novo, pessoa_update, veiculo_update)
 
 urlpatterns = [
     path('', home, name='core_home'),
@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('veiculos/', lista_veiculos, name='core_lista_veiculos'),
     path('veiculo-novo/', veiculo_novo, name='core_veiculo_novo'),
+    path('veiculo-update/<int:id>/$', veiculo_update, name='core_veiculo_update'),
 
     path('mov-rot/', lista_movrotativos, name='core_lista_movrotativos'),
     path('mov-rot-novo/', movrotativo_novo, name='core_movrotativo_novo'),
