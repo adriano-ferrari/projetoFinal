@@ -1,4 +1,5 @@
 .zyon/
 .idea/
 .vscode
-
+*.sqlite3
+*pyc
