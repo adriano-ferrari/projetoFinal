@@ -3,8 +3,8 @@ from .views import (home, lista_pessoas, lista_veiculos, lista_movrotativos,
                     lista_mensalistas, lista_movmensalista, pessoa_nova,
                     veiculo_novo, movrotativo_novo, mensalista_novo,
                     movmensalista_novo, pessoa_update, veiculo_update,
-                    movrotativo_update, mensalista_update,
-                    movmensalista_update, pessoa_delete,)
+                    movrotativo_update, mensalista_update, pessoa_delete,
+                    movmensalista_update, veiculo_delete)
 
 urlpatterns = [
     path('', home, name='core_home'),
@@ -17,6 +17,7 @@ urlpatterns = [
     path('veiculos/', lista_veiculos, name='core_lista_veiculos'),
     path('veiculo-novo/', veiculo_novo, name='core_veiculo_novo'),
     path('veiculo-update/<int:id>/', veiculo_update, name='core_veiculo_update'),
+    path('veiculo-delete/<int:id>/', veiculo_delete, name='core_veiculo_delete'),
 
     path('mov-rot/', lista_movrotativos, name='core_lista_movrotativos'),
     path('mov-rot-novo/', movrotativo_novo, name='core_movrotativo_novo'),
