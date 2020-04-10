@@ -4,7 +4,8 @@ from .views import (home, lista_pessoas, lista_veiculos, lista_movrotativos,
                     veiculo_novo, movrotativo_novo, mensalista_novo,
                     movmensalista_novo, pessoa_update, veiculo_update,
                     movrotativo_update, mensalista_update, pessoa_delete,
-                    movmensalista_update, veiculo_delete)
+                    movmensalista_update, veiculo_delete, movrotativo_delete,
+                    mensalista_delete, movmensalista_delete)
 
 urlpatterns = [
     path('', home, name='core_home'),
@@ -23,12 +24,15 @@ urlpatterns = [
     path('mov-rot-novo/', movrotativo_novo, name='core_movrotativo_novo'),
     path('mov-rot-update/<int:id>/', movrotativo_update,
          name='core_movrotativo_update'),
+    path('mov-rot-delete/<int:id>/', movrotativo_delete, name='core_movrotativo_delete'),
 
     path('mensalistas/', lista_mensalistas, name='core_lista_mensalistas'),
     path('mensalista-novo/', mensalista_novo, name='core_mensalista_novo'),
     path('mensalista-update/<int:id>/', mensalista_update, name='core_mensalista_update'),
+    path('mensalista-delete/<int:id>/', mensalista_delete, name='core_mensalista_delete'),
 
     path('mov-mensal/', lista_movmensalista, name='core_lista_movmensalistas'),
     path('mov-mensal-novo/', movmensalista_novo, name='core_movmensalista_novo'),
     path('mov-mensal-update/<int:id>/', movmensalista_update, name='core_movmensalista_update'),
+    path('mov-mensal-delete/<int:id>/', movmensalista_delete, name='core_movmensalista_delete'),
 ]
