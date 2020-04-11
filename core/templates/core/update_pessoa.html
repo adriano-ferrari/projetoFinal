@@ -1,11 +1,16 @@
-<h2>Alterando dados de {{ pessoa }}</h2>
+{% extends 'base.html' %}
 
-<form action="{% url 'core_pessoa_update' pessoa.id %}" method="POST">
-    {% csrf_token %}
+{% block main %}
+    <h2>Alterando dados de {{ pessoa }}</h2>
 
-    {{ form.as_p }}
+    <form action="{% url 'core_pessoa_update' pessoa.id %}" method="POST">
+        {% csrf_token %}
 
-    <button type="submit">Salvar</button>
-</form>
+        {{ form.as_p }}
 
-<a href="{% url 'core_pessoa_delete' pessoa.id %}">Deletar</a>
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a href="{% url 'core_pessoa_delete' pessoa.id %}">Deletar</a>
+
+{% endblock %}
