@@ -1,4 +1,6 @@
+import csv
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Pessoa, Veiculo, MovRotativo, Mensalista, MovMensalista
 from .forms import (PessoaForm,
                     VeiculoForm,
@@ -6,26 +8,26 @@ from .forms import (PessoaForm,
                     MensalistaForm,
                     MovMensalistaForm)
 
-
+@login_required()
 def home(request):
     context = {'mensagem': 'Olá Mundo!'}
     return render(request, 'core/index.html', context)
 
-
+@login_required()
 def lista_pessoas(request):
     pessoas = Pessoa.objects.all()
     form = PessoaForm()
     data = {'pessoas': pessoas, 'form': form}
     return render(request, 'core/lista_pessoas.html', data)
 
-
+@login_required()
 def pessoa_nova(request):
     form = PessoaForm(request.POST or None)
     if form.is_valid():
         form.save()
     return redirect('core_lista_pessoas')
 
-
+@login_required()
 def pessoa_update(request, id):
     data = {}
     pessoa = Pessoa.objects.get(id=id)
@@ -40,7 +42,7 @@ def pessoa_update(request, id):
     else:
         return render(request, 'core/update_pessoa.html', data)
 
-
+@login_required()
 def pessoa_delete(request, id):
     pessoa = Pessoa.objects.get(id=id)
     if request.method == 'POST':
@@ -49,7 +51,7 @@ def pessoa_delete(request, id):
     else:
         return render(request, 'core/delete_confirm.html', {'obj': pessoa})
 
-
+@login_required()
 def lista_veiculos(request):
     veiculos = Veiculo.objects.all()
     form = VeiculoForm
@@ -200,3 +202,57 @@ def movmensalista_delete(request, id):
         return redirect('core_lista_movmensalistas')
     else:
         return render(request, 'core/delete_confirm.html', {'obj': mov_mensalista})
+
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
+import io
+from django.views.generic.base import View
+
+
+class Render:
+    @staticmethod
+    def render(path: str, params: dict, filename: str):
+        template = get_template(path)
+        html = template.render(params)
+        response = io.BytesIO()
+        pdf = pisa.pisaDocument(
+            io.BytesIO(html.encode("UTF-8")), response)
+        if not pdf.err:
+            response = HttpResponse(
+                response.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+            return response
+        else:
+            return HttpResponse("Error Rendering PDF", status=400)
+
+
+class Pdf(View):
+
+    def get(self, request):
+        veiculos = Veiculo.objects.all()
+        params = {
+            'veiculos': veiculos,
+            'request': request,
+        }
+        return Render.render('core/relatorio.html', params, 'relatorio_veiculos')
+
+
+class ExportarParaCSV(View):
+    def get(self, request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+        veiculos = Veiculo.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow(['Id', 'Marca', 'placa', 'Proprietario', 'Cor'])
+
+        for veiculo in veiculos:
+            writer.writerow(
+                [veiculo.id, veiculo.marca, veiculo.placa, veiculo.proprietario,
+                 veiculo.cor
+                 ])
+
+        return response

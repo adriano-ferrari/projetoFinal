@@ -7,3 +7,4 @@ pytz==2019.3
 sqlparse==0.3.1
 static3==0.7.0
 django-bootstrap-form
+xhtml2pdf

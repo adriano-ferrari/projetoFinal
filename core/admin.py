@@ -4,14 +4,8 @@ from .models import (Marca, Veiculo, Pessoa, Parametro, MovRotativo,
 
 
 class MovRotativoAdmin(admin.ModelAdmin):
-    list_display = ('checkin',
-                    'checkout',
-                    'valor_hora',
-                    'veiculo',
-                    'pago',
-                    'total',
-                    'horas_total'
-                    )
+    list_display = ('checkin', 'checkout', 'valor_hora', 'veiculo',
+                    'pago', 'total', 'horas_total')
 
 
 class MovMensalistaAdmin(admin.ModelAdmin):

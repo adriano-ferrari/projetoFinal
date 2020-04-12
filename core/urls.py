@@ -5,7 +5,7 @@ from .views import (home, lista_pessoas, lista_veiculos, lista_movrotativos,
                     movmensalista_novo, pessoa_update, veiculo_update,
                     movrotativo_update, mensalista_update, pessoa_delete,
                     movmensalista_update, veiculo_delete, movrotativo_delete,
-                    mensalista_delete, movmensalista_delete)
+                    mensalista_delete, movmensalista_delete, Pdf, ExportarParaCSV)
 
 urlpatterns = [
     path('', home, name='core_home'),
@@ -35,4 +35,8 @@ urlpatterns = [
     path('mov-mensal-novo/', movmensalista_novo, name='core_movmensalista_novo'),
     path('mov-mensal-update/<int:id>/', movmensalista_update, name='core_movmensalista_update'),
     path('mov-mensal-delete/<int:id>/', movmensalista_delete, name='core_movmensalista_delete'),
+    path('relatorio/', Pdf.as_view(), name='relatorio_pdf'),
+    path('relatorio-csv/', ExportarParaCSV.as_view(), name='relatorio_csv')
+
+
 ]
